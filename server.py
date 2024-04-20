@@ -25,9 +25,9 @@ conn = []
 transmit_audio = True
 
 sample_rate = 88200
-marker_interval = 2.5 # Интервал между "биипами" в секундах
-beep_duration =  0.8  # Длительность "биипа" в секундах
-beep_frequency = 210 # Частота "биипа" в Гц
+marker_interval = 2.5 
+marker_duration =  0.8  
+marker_frequency = 210 
 
 text = ""
 
@@ -35,16 +35,16 @@ text = ""
 entry = None
 entry2 = None
 def update_frequency():
-    new_frequency = int(entry.get())
     global beep_frequency
-    beep_frequency = new_frequency
-    print("Значение переменной beep_frequency обновлено:", beep_frequency)
+    marker_frequency = int(entry.get())
+    print("Значение переменной marker_frequency обновлено:", marker_frequency)
 
 
 def update_TTS():
-    new_frequency = entry2.get()
     global text
-    text = new_frequency
+    text = entry2.get()
+    print("Значение переменной text обновлено:", text
+  
 
 
 
@@ -70,10 +70,10 @@ def sendTTS():
     audio = audio.set_frame_rate(88200)
 
 
-    audio.export("voice_44100.wav", format="wav")
+    audio.export("voice44100.wav", format="wav")
 
 
-    with open("voice_44100.wav", 'rb') as f:
+    with open("voice44100.wav", 'rb') as f:
         try:
             while True:
                 data = f.read(CHUNK)
@@ -189,28 +189,21 @@ def server_thread():
         conn.append(sockett)
         print(f"New client connected: {sockett.getpeername()}")
 
-
-
-
 def toggle_marker():
     print("Значение активности маркера изменено")
     global marker_on
     marker_on = not marker_on
 
-
 def start_serverInterface():
     threading.Thread(target=server_thread, daemon=True).start()
 
-    # Создаем главное окно
     root = tk.Tk()
     root.geometry('600x400')
     root.title("Сервер")
 
-    # Создаем фрейм для расположения элементов интерфейса в столбик
     frame = tk.Frame(root)
     frame.pack(side='left')
 
-    # Кнопка для выбора файла
     select_button = tk.Button(frame, text="Выбрать файл для трансляции", command=lambda: select_file())
     select_button.pack(side='top')
 
@@ -228,6 +221,7 @@ def start_serverInterface():
     marker_button.pack(side='top')
 
     label = tk.Label(frame, text="Введите значение для частоты маркера:")
+    
     label.pack(side='top')
 
     global entry
@@ -241,13 +235,8 @@ def start_serverInterface():
     marker_toggle_button = tk.Button(frame, text="Маркер ON/OFF", command=lambda: markerhandle())
     marker_toggle_button.pack(side='top')
 
-
-
-
-
     tts_button = tk.Button(frame, text="Транслировать TTS",
-                              command=lambda: threading.Thread(target=sendTTS, daemon=True).start()
-                              )
+                              command=lambda: threading.Thread(target=sendTTS, daemon=True).start())
 
     tts_button.pack(side='top')
 
@@ -264,19 +253,16 @@ def start_serverInterface():
     button2.pack(side='top')
 
     yt_button = tk.Button(frame, text="Транслировать аудио с ютуба",
-                           command=lambda: threading.Thread(target=start_transmission_from_youtube, daemon=True, args=("https://www.youtube.com/watch?v=2UjyzLAOfvY",)).start()
-                           )
+                           command=lambda: threading.Thread(target=start_transmission_from_youtube, daemon=True, args=("https://www.youtube.com/watch?v=2UjyzLAOfvY",)).start())
 
     yt_button.pack(side='top')
 
     pl_button = tk.Button(frame, text="Проигрывание очереди",
                           command=lambda: threading.Thread(target=play_playlist, daemon=True, args=(
-                          create_playlist(),)).start()
-                          )
+                          create_playlist(),)).start())
 
     pl_button.pack(side='top')
 
-    # Запускаем главный цикл обработки событий
     root.mainloop()
 
 
