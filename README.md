@@ -4,3 +4,6 @@
 Собрать в исполняемый файл Python код можно использую py-installer на Windows и Linux, но софт на Linux не тестировался.
 Пример сборки *сервера*: ``` pyinstaller --onefile server.py ```, 
 Пример сборки *клиента*: ``` pyinstaller --onefile client.py ```.
+# Интерфейс
+Вот как выглядит интерфейс сервера:
+![alt text](https://github.com/amazingdevvv/DMT/tree/main/images/gui.png)
