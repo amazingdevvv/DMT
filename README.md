@@ -6,4 +6,4 @@
 Пример сборки *клиента*: ``` pyinstaller --onefile client.py ```.
 # Интерфейс
 Вот как выглядит интерфейс сервера:
-![alt text](https://github.com/amazingdevvv/DMT/images/gui.png)
+![alt text](https://github.com/amazingdevvv/DMT/gui.png)
