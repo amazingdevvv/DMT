@@ -5,6 +5,6 @@
 Пример сборки *сервера*: ``` pyinstaller --onefile server.py ```, 
 Пример сборки *клиента*: ``` pyinstaller --onefile client.py ```.
 # Интерфейс
-Вот как выглядит интерфейс сервера:
 ![alt text](https://github.com/amazingdevvv/DMT/blob/main/images/gui.png)
+Вот как выглядит интерфейс сервера:
 
